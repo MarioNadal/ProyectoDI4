@@ -76,6 +76,7 @@ fun ContrasenaOlvidadaScreenBodyContent(
     val contrasenaOlvidadaScreenuiState by contrasenaOlvidadaScreenViewModel.uiState.collectAsState()
     val context = LocalContext.current
     var navigationCambiarContrasena = remember { mutableStateOf(false) }
+    var navigationCambiarContrasenaEscribir = remember { mutableStateOf(false) }
     var errorNavigationCambiarContrasena = remember { mutableStateOf(false) }
     val confirmacionCambioContraseñaScreenuiState by confirmacionCambioContrasenaScreenViewModel.uiState.collectAsState()
     var navigationHome = remember { mutableStateOf(false) }
@@ -225,24 +226,19 @@ fun ContrasenaOlvidadaScreenBodyContent(
             }
         }
         if (navigationCambiarContrasena.value) {
-            Toast.makeText(
-                context,
-                "Código de verificación enviado",
-                Toast.LENGTH_SHORT
-            ).show()
+            Toast.makeText(context, "Código de verificación enviado", Toast.LENGTH_SHORT).show()
+            navigationCambiarContrasena.value = false
+            navigationCambiarContrasenaEscribir.value = true
         }
         if (errorNavigationCambiarContrasena.value) {
-            Toast.makeText(
-                context,
-                "Error en el correo",
-                Toast.LENGTH_SHORT
-            ).show()
+            Toast.makeText(context, "Error en el correo", Toast.LENGTH_SHORT).show()
+            errorNavigationCambiarContrasena.value = false
         }
         Spacer(modifier = Modifier.height(40.dp))
         //Campo de entrada de la nueva contraseña
         OutlinedTextField(
             value = confirmacionCambioContraseñaScreenuiState.password,
-            enabled = navigationCambiarContrasena.value,
+            enabled = navigationCambiarContrasenaEscribir.value,
             onValueChange = {
                 confirmacionCambioContrasenaScreenViewModel.onChanged(
                     it,
@@ -280,7 +276,7 @@ fun ContrasenaOlvidadaScreenBodyContent(
         //Campo de entrada del código de verificación
         OutlinedTextField(
             value = confirmacionCambioContraseñaScreenuiState.codigoverif,
-            enabled = navigationCambiarContrasena.value,
+            enabled = navigationCambiarContrasenaEscribir.value,
             onValueChange = {
                 confirmacionCambioContrasenaScreenViewModel.onChanged(
                     confirmacionCambioContraseñaScreenuiState.password,
