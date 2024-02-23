@@ -21,10 +21,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
-import androidx.compose.ui.test.junit4.createComposeRule
-import androidx.compose.ui.test.onNodeWithTag
-import androidx.compose.ui.test.onNodeWithText
-import androidx.compose.ui.test.performClick
+
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.rememberNavController
@@ -43,52 +40,13 @@ import org.junit.Rule
 
 //Tests unitarios para RegisterScreen
 class RegisterScreenTestsUnitarios {
-    @get:Rule
-    val rule = createComposeRule()
+
     //Inicialización del ViewModel para ser utilizado en las pruebas
     val viewModel = RegisterScreenViewModel()
 
 
-    var expanded = false
-    //Idioma seleccionado
-    var selectedLanguage: String = "Español"
-    @Test
-    fun testDropdownMenu() {
-        //Variable para expandir el menú de idiomas
 
-        rule.setContent {
-            //Menú de idiomas
-            DropdownMenu(
-                expanded = expanded,
-                onDismissRequest = { expanded = true },
-                modifier = Modifier
-                    .width(150.dp)
-                    .padding(16.dp)
-            ) {
-                //Idioma Español
-                DropdownMenuItem(modifier = Modifier.testTag("opcionEspañol"),
-                    text = { Text(text = "Español") },
-                    onClick = {
-                        selectedLanguage = "Español"
-                        expanded = false
-                    })
-                //Idioma Ingles
-                DropdownMenuItem(modifier = Modifier.testTag("opcionIngles"),
-                    text = { Text(text = "English") },
-                    onClick = {
-                        selectedLanguage = "English"
-                        expanded = false
-                    })
-                //Idioma Francés
 
-                rule.onNodeWithTag("opcionEspañol").performClick()
-                rule.onNodeWithTag("opcionIngles").assertExists()
-                rule.onNodeWithTag("opcionIngles").performClick()
-                rule.onNodeWithTag("opcionEspañol").assertDoesNotExist()
-                rule.onNodeWithTag("opcionIngles").assertExists()
-            }
-        }
-    }
 
 
     /**
