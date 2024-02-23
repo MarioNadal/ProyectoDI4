@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("org.jetbrains.kotlin.plugin.serialization") version "1.8.10"
 }
 
 android {
@@ -70,5 +71,11 @@ dependencies {
     implementation("com.amplifyframework:core:2.14.9")
     implementation("com.amplifyframework:aws-auth-cognito:2.14.9")
     implementation("androidx.navigation:navigation-compose:2.7.7")
+    //retrofit
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
 
 }
