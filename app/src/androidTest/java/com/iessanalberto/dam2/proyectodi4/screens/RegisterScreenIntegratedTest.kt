@@ -1,17 +1,31 @@
 package com.iessanalberto.dam2.proyectodi4.screens
 
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.test.assertIsDisplayed
+import androidx.compose.ui.test.assertIsNotDisplayed
+import androidx.compose.ui.test.assertIsToggleable
 import androidx.compose.ui.test.assertTextEquals
 
 import androidx.compose.ui.test.junit4.createComposeRule
@@ -19,11 +33,16 @@ import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextInput
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.navigation.Navigation
 import androidx.navigation.compose.rememberNavController
+import androidx.test.services.storage.file.PropertyFile
 import com.example.loginfactoriaproyectos.navigation.AppScreens
 import com.iessanalberto.dam2.proyectodi.viewmodels.RegisterScreenViewModel
+import com.iessanalberto.dam2.proyectodi4.R
 import org.junit.Rule
 import org.junit.Test
 
@@ -146,27 +165,41 @@ class RegisterScreenIntegratedTest {
             }
         }
     }
+
     @Test
-    fun redirigirMFAScreenSiRegistroExitoso(){
+    fun passwordVisibleFunciona(){
+
         rule.setContent {
-            val registerScreenViewModel = RegisterScreenViewModel()
-            val registerUiState by registerScreenViewModel.uiState.collectAsState()
-            var navController = rememberNavController()
-            var registroValido = true
-            Button(modifier = Modifier.testTag("button"), onClick = {registroValido = true }) {
+            var passwordVisible by remember { mutableStateOf(false) }
+            val otfValue by remember{ mutableStateOf("") }
+            OutlinedTextField(modifier = Modifier.testTag("otf"), value = otfValue,
+                onValueChange = {it},
+                visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+                trailingIcon = {
+                    IconButton(modifier = Modifier.testTag("iconButton"), onClick = { passwordVisible = !passwordVisible }) {
+                        Icon(modifier = Modifier.testTag("icon"),
+                            painter = painterResource(R.drawable.ojocontrasena),
+                            contentDescription = "Toggle password visibility"
 
-                if (registroValido) {
-                    //Se mostrará al usuario la pantalla de verificación MFA y se mandará el usuario para poder usarlo en la pantalla MFAScreen
-                    navController.navigate(route = AppScreens.MFAScreen.route + "/" + registerUiState.registroUsuario)
-                    registroValido = false
+                        )
+                        rule.onNodeWithTag("iconButton").assertIsDisplayed()
+
+                        rule.onNodeWithTag("iconButton").performClick()
+                        assert(passwordVisible)
+                        rule.onNodeWithTag("iconButton").performClick()
+                        assert(!passwordVisible)
+                    }
+
+
                 }
-            rule.onNodeWithTag("button").performClick()
+            )
 
-            }
 
 
 
         }
-
     }
+
+
 }
