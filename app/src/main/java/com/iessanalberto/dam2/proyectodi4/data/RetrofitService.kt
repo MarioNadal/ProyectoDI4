@@ -14,7 +14,7 @@ interface RetrofitService {
     suspend fun listData(): ProyectosFP
     @POST("my-other-resource")
     suspend fun sendData(
-        @Query("queryStringParameters") param: String = "Hola",
+        @Query("queryStringParameters") queryStringParameters: String,
         @Body data: ProyectosFP
     ): Response<ProyectosFP>
 

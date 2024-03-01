@@ -57,7 +57,7 @@ fun HomeScreenBodyContent() {
                     //mandar datos por post, cambiar estos por los de la lambda
                     val data = ProyectosFP("202", "bodymia")
                     val service = RetrofitServiceFactory.makeRetrofitService()
-                    val response = service.sendData("hola",data)
+                    val response = service.sendData("hola", data)
                     responseState.value = response
                 }
             }
