@@ -285,7 +285,7 @@ fun RegisterScreenBodyContent(
             }
             //Error en el correo sin contener el simbolo @
             else if (registerScreenViewModel.registrarUsuario() == 3) {
-                Toast.makeText(context, "El corre debe contener un @", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "El correo debe contener un @", Toast.LENGTH_SHORT).show()
             }
             //Error en la contraseña con la longitud siendo menor a 9 o mayor a 30
             else if (registerScreenViewModel.registrarUsuario() == 4) {
