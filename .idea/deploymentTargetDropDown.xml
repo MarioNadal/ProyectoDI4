@@ -2,22 +2,10 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
-      <entry key="RegisterScreenIntegratedTest">
+      <entry key="IntegratedTest">
         <State />
       </entry>
       <entry key="app">
-        <State />
-      </entry>
-      <entry key="cambiaIdiomaFunciona()">
-        <State />
-      </entry>
-      <entry key="redirigirMFAScreenSiRegistroExitoso()">
-        <State />
-      </entry>
-      <entry key="tesOutlainedFixedFunciona()">
-        <State />
-      </entry>
-      <entry key="testDropdownMenuIdiomaIngles()">
         <State />
       </entry>
     </value>

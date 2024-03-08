@@ -45,10 +45,6 @@ class RegisterScreenTestsUnitarios {
     val viewModel = RegisterScreenViewModel()
 
 
-
-
-
-
     /**
      * Prueba para campos vacíos.
      * Se espera que el método registrarUsuario devuelva 1.
@@ -107,7 +103,7 @@ class RegisterScreenTestsUnitarios {
 
     /**
      * Prueba para campo contraseña mayor de 30 carácteres.
-     * Se espera que el método registrarUsuario devuelva 5.
+     * Se espera que el método registrarUsuario devuelva 4.
      */
     @Test
     fun passwordLarga() {
